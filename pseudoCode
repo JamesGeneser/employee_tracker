@@ -1,0 +1,25 @@
+Make a content management system
+
+node.js, Inquirer, MySql all used
+
+npm i inquirer@8.2.4
+walkthrough video
+
+What do they want?
+To view and edit departments, roles, and employee dbs
+
+inquirer asks user:
+--choice: view all departments, view all roles, view all employees, add a department, --add a role, add an employee, and update an employee role
+
+----view all departments:
+-------formatted table{department names and department ids}
+
+----view all roles:
+-------table{job title, role id, the department that role belongs to, and the salary for that role}
+
+----view all employees:
+-------table{including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to}
+
+----add a department:
+-----enter name of new department:
+-----------value is inserted into table (id auto gen)
