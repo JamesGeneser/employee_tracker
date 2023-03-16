@@ -13,44 +13,117 @@ const db = mysql.createConnection(
   },
   console.log(`Connected to the company database.`)
 );
-db.connect(function (err) {
-  if (err) throw err;
-  console.log(err);
-});
-inquirer
-  .prompt([
-    {
-      type: "list",
-      message:
-        "Welcome to the company database! What data would you like to see?",
-      name: "initialChoice",
-      choices: [
-        "view all departments",
-        "view all roles",
-        "view all employees",
-        "add a department",
-        "add a role",
-        "update an employee role",
-      ],
-    },
-  ])
-  .then((answer) => {
-    // console.log(answer);
-    if ((answer = "view all departments")) {
-      console.log("show department table");
 
-      db.query("SELECT * FROM departments", function (err, results) {
-        console.log(results);
-      });
-    } else if ((answer = "view all roles")) {
-      console.log("show roles table");
-    } else if ((answer = "view all employees")) {
-      console.log("show employee table");
-    } else if ((answer = "add a department")) {
-      console.log("add department");
-    } else if ((answer = "add a role")) {
-      console.log("add role");
-    } else if ((answer = "update an employee role")) {
-      console.log("update employee role");
-    }
-  });
+const mainDirectory = () => {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message:
+          "Welcome to the company database! What data would you like to see?",
+        name: "initialChoice",
+        choices: [
+          "view all departments",
+          "view all roles",
+          "view all employees",
+          "add a department",
+          "add a role",
+          "update an employee role",
+        ],
+      },
+    ])
+    .then((answer) => {
+      console.log(answer.initialChoice);
+      choiceRouter(answer);
+    });
+};
+
+function choiceRouter(answer) {
+  console.log(answer);
+
+  if (answer.initialChoice == "view all departments") {
+    console.log("show department table");
+
+    db.query("SELECT * FROM departments", function (err, results) {
+      console.table(results);
+    });
+  } else if (answer.initialChoice == "view all roles") {
+    console.log("show roles table");
+
+    // db.query("SELECT * FROM roles", function (err, results) {
+    //   console.table(results);
+    // });
+    db.query(
+      "SELECT roles.title, departments.name, roles.salary FROM roles INNER JOIN departments ON roles.department_id=departments.id",
+      function (err, results) {
+        console.table(results);
+      }
+    );
+  } else if (answer.initialChoice == "view all employees") {
+    console.log("show employee table");
+
+    db.query("SELECT * FROM employee", function (err, results) {
+      console.table(results);
+    });
+    db.query(
+      "SELECT employee.id, employee.first_name, employee.last_name",
+      //   "SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary FROM employee INNER JOIN roles ON employee.roles_id=roles.id INNER JOIN departments.name ON roles.department_id=departments.id",
+      function (err, results) {
+        console.table(results);
+      }
+    );
+  } else if (answer.initialChoice == "add a department") {
+    console.log("add department");
+    addDepartment();
+  } else if (answer.initialChoice == "add a role") {
+    console.log("add role");
+    addRole();
+  } else if (answer.initialChoice == "update an employee role") {
+    console.log("update employee role");
+    addEmployee();
+  }
+}
+
+const addDepartment = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the name of the new department?",
+        name: "newDepartment",
+      },
+    ])
+    .then((answer) => {
+      console.log(answer.newDepartment);
+      departmentName = answer.newDepartment;
+      db.query("INSERT INTO departments SET name =?", [departmentName]);
+    });
+};
+const addRole = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the name of the new role?",
+        name: "newRole",
+      },
+    ])
+    .then((answer) => {
+      console.log(answer.newRole);
+    });
+};
+
+const addEmployee = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the name of the new employee?",
+        name: "newEmployee",
+      },
+    ])
+    .then((answer) => {
+      console.log(answer.newEmployee);
+    });
+};
+mainDirectory();
