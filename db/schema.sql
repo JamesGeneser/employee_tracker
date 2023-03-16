@@ -5,7 +5,7 @@ USE company_directory;
 
 CREATE TABLE departments (
   id INT PRIMARY KEY,
-  name VARCHAR(40) 
+  name VARCHAR(40)
 );
 
 -- CREATE TABLE roles (
