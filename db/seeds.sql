@@ -1,4 +1,3 @@
-
 INSERT INTO departments (name)
 VALUES ("finance"),
         ("marketing"),
@@ -14,8 +13,8 @@ VALUES ("Client Liason", 200, 002),
         ("Graphic Designer", 30300, 002);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Krom", "Drosbin",001, 30),
-("Bax", "Nosburr",004, 22),
-("Callie", "Jocktaylor", 003, 44),
-("Pierre", "French",002, 59),
-("Eugene", "Spackle",005, 75);
+VALUES ("Krom", "Drosbin",001, 002),
+("Bax", "Nosburr",004, null),
+("Callie", "Mockentail", 003, 002),
+("Pierre", "French",002, 003),
+("Eugene", "Cadabra",005, 003);

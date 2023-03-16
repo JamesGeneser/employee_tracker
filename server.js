@@ -66,7 +66,7 @@ function choiceRouter(answer) {
       console.table(results);
     });
     db.query(
-      "SELECT employee.id, employee.first_name, employee.last_name",
+      "SELECT e.id, e.first_name, e.last_name, CONCAT(m.first_name, ' ', m.last_name) AS manager FROM employee e LEFT JOIN employee m ON m.id = e.manager_id",
       //   "SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary FROM employee INNER JOIN roles ON employee.roles_id=roles.id INNER JOIN departments.name ON roles.department_id=departments.id",
       function (err, results) {
         console.table(results);
