@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const { type } = require("os");
 
 inquirer
   .prompt([
@@ -13,11 +14,23 @@ inquirer
         "view all employees",
         "add a department",
         "add a role",
-        "update and employee role",
+        "update an employee role",
       ],
     },
   ])
   .then((answer) => {
-    console.log(answer);
-    if(answer == "view all departments")
+    // console.log(answer);
+    if ((answer = "view all departments")) {
+      console.log("show department table");
+    } else if ((answer = "view all roles")) {
+      console.log("show roles table");
+    } else if ((answer = "view all employees")) {
+      console.log("show employee table");
+    } else if ((answer = "add a department")) {
+      console.log("add department");
+    } else if ((answer = "add a role")) {
+      console.log("add role");
+    } else if ((answer = "update an employee role")) {
+      console.log("update employee role");
+    }
   });
