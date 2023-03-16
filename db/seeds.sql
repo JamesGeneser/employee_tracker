@@ -1,10 +1,10 @@
 
 
--- INSERT INTO departments (id,name)
--- VALUES (001, "finance"),
---         (002, "marketing"),
---         (003, "human resources"),
---         (004, "operations management");
+INSERT INTO departments (id,name)
+VALUES (001, "finance"),
+        (002, "marketing"),
+        (003, "human resources"),
+        (004, "operations management");
 
 -- INSERT INTO roles (id, title, salary, department_id)
 -- VALUES (001, "Client Liason", 200, 002),

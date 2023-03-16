@@ -1,12 +1,12 @@
 DROP DATABASE IF EXISTS company_directory;
 CREATE DATABASE company_directory;
 
--- USE company_directory;
-d
--- CREATE TABLE departments (
---   id INT PRIMARY KEY,
---   name VARCHAR(40) 
--- );
+USE company_directory;
+
+CREATE TABLE departments (
+  id INT PRIMARY KEY,
+  name VARCHAR(40) 
+);
 
 -- CREATE TABLE roles (
 --  id INT PRIMARY KEY,
@@ -31,7 +31,6 @@ d
 
 
 
--- SELECT * FROM employee
 
 
 
