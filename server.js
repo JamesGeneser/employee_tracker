@@ -49,10 +49,6 @@ function choiceRouter(answer) {
     });
   } else if (answer.initialChoice == "view all roles") {
     console.log("show roles table");
-
-    // db.query("SELECT * FROM roles", function (err, results) {
-    //   console.table(results);
-    // });
     db.query(
       "SELECT roles.title, departments.name, roles.salary FROM roles INNER JOIN departments ON roles.department_id=departments.id",
       function (err, results) {
@@ -101,6 +97,9 @@ const addDepartment = () => {
       console.log(answer.newDepartment);
       departmentName = answer.newDepartment;
       db.query("INSERT INTO departments SET name =?", [departmentName]);
+      db.query("SELECT * FROM departments", function (err, results) {
+        console.table(results);
+      });
     });
 };
 const addRole = () => {
@@ -109,11 +108,44 @@ const addRole = () => {
       {
         type: "input",
         message: "What is the name of the new role?",
-        name: "newRole",
+        name: "role",
+      },
+      {
+        type: "input",
+        message: "What is the salary?",
+        name: "salary",
+      },
+      {
+        type: "list",
+        message: "What department does the new role belong to?",
+        name: "department",
+        choices: [
+          "finance",
+          "marketing",
+          "human resources",
+          "operations management",
+        ],
       },
     ])
     .then((answer) => {
-      console.log(answer.newRole);
+      console.log(answer.role);
+      roleTitle = answer.role;
+      roleSalary = answer.salary;
+      console.log(answer.salary);
+      const sql = "INSERT INTO roles (title, salary) VALUES ?;";
+      const values = [roleTitle, roleSalary];
+      db.query(sql, [values], function (err, result) {
+        if (err) throw err;
+        console.log("role added");
+      });
+      //   db.query("INSERT INTO roles SET title =? Set salary =?", [
+      //     roleTitle,
+      //     roleSalary,
+      //   ]);
+
+      db.query("SELECT * FROM roles", function (err, results) {
+        console.table(results);
+      });
     });
 };
 
@@ -131,3 +163,7 @@ const addEmployee = () => {
     });
 };
 mainDirectory();
+
+const showDepartments = () => {
+  db.query("SELECT * FROM departments", function (err, results) {});
+};
