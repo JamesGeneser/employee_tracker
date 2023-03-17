@@ -1,5 +1,7 @@
 # employee_tracker
 
+Navigate and update a company database throught the command line
+
 # 12 SQL: Employee Tracker
 
 ## Your Task

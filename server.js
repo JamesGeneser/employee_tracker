@@ -6,9 +6,9 @@ const { last } = require("rxjs");
 const db = mysql.createConnection(
   {
     host: "127.0.0.1",
-    // MySQL username,
+
     user: "root",
-    // MySQL password
+
     password: "drowssap",
     database: "company_directory",
   },
@@ -82,8 +82,6 @@ function choiceRouter(answer) {
     addEmployee();
   }
 }
-
-//INNER JOIN departments ON roles.department_id=departments.id
 
 const addDepartment = () => {
   inquirer
@@ -193,7 +191,3 @@ const addEmployee = () => {
     });
 };
 mainDirectory();
-
-const showDepartments = () => {
-  db.query("SELECT * FROM departments", function (err, results) {});
-};
