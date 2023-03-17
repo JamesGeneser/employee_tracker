@@ -1,14 +1,10 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const { last } = require("rxjs");
-// const { type } = require("os");
 
 const db = mysql.createConnection(
   {
     host: "127.0.0.1",
-
     user: "root",
-
     password: "drowssap",
     database: "company_directory",
   },
@@ -79,7 +75,7 @@ function choiceRouter(answer) {
     addRole();
   } else if (answer.initialChoice == "update an employee role") {
     console.log("update employee role");
-    addEmployee();
+    // updateEmployee();
   }
 }
 
@@ -145,7 +141,7 @@ const addRole = () => {
     });
 };
 
-const addEmployee = () => {
+const updateEmployee = () => {
   inquirer
     .prompt([
       {
