@@ -132,9 +132,10 @@ const addRole = () => {
       roleTitle = answer.role;
       roleSalary = answer.salary;
       console.log(answer.salary);
-      const sql = "INSERT INTO roles (title, salary) VALUES ?;";
-      const values = [roleTitle, roleSalary];
-      db.query(sql, [values], function (err, result) {
+      let sql = "INSERT INTO roles(title, salary) VALUES (?,?)";
+      let values = [roleTitle, roleSalary];
+
+      db.query(sql, values, (err, result) => {
         if (err) throw err;
         console.log("role added");
       });
