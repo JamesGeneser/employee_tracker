@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
+const { last } = require("rxjs");
 // const { type } = require("os");
 
 const db = mysql.createConnection(
@@ -139,10 +140,6 @@ const addRole = () => {
         if (err) throw err;
         console.log("role added");
       });
-      //   db.query("INSERT INTO roles SET title =? Set salary =?", [
-      //     roleTitle,
-      //     roleSalary,
-      //   ]);
 
       db.query("SELECT * FROM roles", function (err, results) {
         console.table(results);
@@ -155,12 +152,44 @@ const addEmployee = () => {
     .prompt([
       {
         type: "input",
-        message: "What is the name of the new employee?",
-        name: "newEmployee",
+        message: "What is the first name of the new employee?",
+        name: "first_name",
+      },
+      {
+        type: "input",
+        message: "What is their last name?",
+        name: "last_name",
+      },
+      {
+        type: "input",
+        message: "What is their role?",
+        name: "title",
+      },
+      {
+        type: "list",
+        message: "Who is their manager?",
+        name: "manager",
+        choices: ["Bax Nosburr", "Callie Mockentail", "Krom Drosbin"],
       },
     ])
     .then((answer) => {
-      console.log(answer.newEmployee);
+      console.log(answer.first_name);
+      first_name = answer.first_name;
+      last_name = answer.last_name;
+      title = answer.title;
+      manager = answer.manager;
+
+      let sql = "INSERT INTO employee(first_name, last_name) VALUES (?,?)";
+      let values = [first_name, last_name];
+
+      db.query(sql, values, (err, result) => {
+        if (err) throw err;
+        console.log("employee added");
+      });
+
+      db.query("SELECT * FROM employee", function (err, results) {
+        console.table(results);
+      });
     });
 };
 mainDirectory();
